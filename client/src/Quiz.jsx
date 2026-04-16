@@ -52,10 +52,10 @@ const Quiz = ({ user, setUser }) => {
   return (
     <div className="quiz-container">
       <div className="header">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <img src="/vino/logo.png" alt="Logo" style={{ width: '60px', height: '60px', borderRadius: '50%', border: '2px solid var(--accent)' }} />
-          <h2>Benvenuto, {user.nome}</h2>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '1rem' }}>
+          <img src="/vino/logo.png" alt="Logo" style={{ width: '180px', height: '180px', borderRadius: '50%', border: '4px solid var(--accent)', boxShadow: '0 4px 20px rgba(0,0,0,0.3)' }} />
         </div>
+
 
         <div className="header-stats">
           <div className="stat-badge">
