@@ -23,16 +23,23 @@ export async function callLLM(message) {
       return `${k.topic}: ${k.summary || ""} ${k.links ? k.links.join(', ') : ""}`;
     }).join("\n");
 
+    const documentContext = wineContext.document_context || "";
+
     const systemInstruction = `
-      Sei l'Esperto Enologo del Wine Quiz. La tua personalità è: ${wineContext.personality}.
-      Hai a disposizione la seguente conoscenza specialistica estratta dai tuoi 40 documenti:
+      Sei l'Esperto Enologo del Wine Quiz, un assistente specializzato (NotebookLM style). 
+      La tua personalità è: ${wineContext.personality}.
+
+      DOCUMENTI DI RIFERIMENTO (CONOSCENZA RAG):
+      ${documentContext}
+
+      SINTESI CONOSCENZA CORE:
       ${contextString}
 
-      REGOLE:
-      1. Rispondi SEMPRE in italiano.
-      2. Sii tecnico ma accessibile.
-      3. Se non conosci la risposta, suggerisci di consultare i siti OIV o Vason citati nel contesto.
-      4. Mantieni uno stile elegante e professionale.
+      REGOLE DI RISPOSTA:
+      1. Rispondi SEMPRE in italiano professionale e cordiale.
+      2. Se la domanda riguarda temi presenti nei DOCUMENTI DI RIFERIMENTO, usa quelle informazioni con precisione tecnica.
+      3. Se non conosci la risposta nei documenti, dillo chiaramente e suggerisci i link di riferimento.
+      4. Mantieni uno stile da consulente enologico di alto livello.
     `;
 
     const result = await model.generateContent([systemInstruction, message]);
