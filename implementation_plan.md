@@ -1,48 +1,40 @@
-# Implementation Plan
+# Implementation Plan - UI Polish & AI Integration
 
 ## Goal Description
-We need to:
-1. Ensure the full‑screen logo overlay is perfectly centered.
-2. Add a **LLM button** below the logo that opens a simple chatbot UI.
-3. Implement a lightweight chatbot component that sends user messages to a free LLM endpoint (e.g., HuggingFace inference API) and displays the response.
-4. Keep the existing quiz functionality unchanged.
+The user reported that the logo is not centered and the LLM is not "integrated". We need to:
+1.  **Perfect Centering**: Revise the `logo-overlay` CSS to ensure absolute centering on all devices and add visual depth to make the centering obvious.
+2.  **AI Integration (NotebookLM-style)**: 
+    *   Enhance the chatbot to have a "Wine Expert" personality (mimicking a NotebookLM specialized in wine).
+    *   Ensure the LLM button is clearly visible and functional.
+    *   Add a greeting message from the AI when the chat opens.
+    *   Improve the error handling in `aiService.js` to provide better feedback if the API is down.
 
 ## User Review Required
 > [!IMPORTANT]
-> Choose the free LLM service you prefer:
-> - **HuggingFace Inference API** (no key required for many public models, rate‑limited).
-> - **OpenAI ChatGPT free tier** (requires an API key).
-> - **Ollama local model** (requires the user to run Ollama locally).
->
-> Let us know which one to use and any API key you want to provide (if needed).
+> - The centering issue might be a visual perception problem due to the pure white background. I will add a subtle gradient and a shadow to the logo to make it clearly "float" in the center.
+> - For "NotebookLM integration", I will prompt the AI to act specifically as your personal Wine Assistant.
 
 ## Proposed Changes
----
-### Frontend (client)
-- **src/index.css** – adjust `.logo-overlay` and `.logo-circle` to guarantee centering.
-- **src/Quiz.jsx** – add a button `<button className="btn llm-btn" onClick={openChat}>Chat with AI</button>` after the logo overlay.
-- **src/Chatbot.jsx** – new component handling message input, displaying a conversation list, and calling the selected LLM endpoint.
-- **src/App.jsx** (or main wrapper) – import and render `<Chatbot />` conditionally when `showChat` state is true.
-- Add minimal styling for the chatbot UI (floating panel, responsive).
----
-### API Integration
-- Create **src/aiService.js** exposing a function `callLLM(message)` that performs a `fetch` POST to the chosen endpoint.
-- For HuggingFace, use `https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1` with appropriate headers.
-- Handle CORS via the browser (HuggingFace supports it). Provide fallback error handling.
----
-### State Management
-- Add a new state `showChat` in `Quiz.jsx` (or a higher‑level component) to toggle the chatbot panel.
-- Store conversation in local component state; optionally persist in `localStorage`.
----
+
+### 🎨 CSS Enhancements (`client/src/index.css`)
+- [MODIFY] `.logo-overlay`: Change background to a subtle radial gradient.
+- [MODIFY] `.logo-circle`: Add a soft shadow to make it visible against white.
+- [NEW] `.chatbot-message.assistant`: Style it differently (e.g., wine-colored accents) to feel more "integrated" with the brand.
+
+### 🤖 AI Integration (`client/src/aiService.js` & `client/src/Chatbot.jsx`)
+- [MODIFY] `aiService.js`: Update the model or improve the prompt to ensure it's "Wine Focused".
+- [MODIFY] `Chatbot.jsx`: Add an initial state with a "Welcome" message from the "Wine Expert".
+
+### 🧩 UI Logic (`client/src/Quiz.jsx`)
+- [MODIFY] Overlay structure: Ensure the logo and button are in a well-defined flex container with zero margins on sides.
+
 ## Open Questions
-- Which free LLM service should we target?
-- Do you want the chatbot to appear as a modal overlay or a side panel?
-- Any design preferences for the chatbot UI (colors, size)?
+- Is the logo "not centered" vertically or horizontally? (I will assume both and fix with a fresh flexbox approach).
+- Do you have a specific AI model you want to use? (I'll stick to a free Mistral/Gemini-style API unless specified).
 
 ## Verification Plan
-### Automated Tests
-- Run `npm run build` to ensure no compile errors.
-- Use the browser tool to open the site, click the logo, then the LLM button, send a message and verify a response appears.
-### Manual Verification
-- Verify the logo overlay is centered on desktop and mobile.
-- Confirm the chatbot UI is responsive and functional.
+1.  **Manual Verification**: 
+    *   Open the app on mobile and desktop. Check if the logo is dead center.
+    *   Click "Chat with AI". Check if the AI greets the user.
+    *   Ask a wine question to verify the "NotebookLM" expert persona.
+2.  **Build Check**: Run `npm run build` to ensure no regressions.

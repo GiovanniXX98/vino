@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { callLLM } from './aiService';
 
 const Chatbot = ({ onClose }) => {
-  const [messages, setMessages] = useState([]); // {role: 'user'|'assistant', text: ''}
+  const [messages, setMessages] = useState([
+    { role: 'assistant', text: 'Buongiorno! Sono il tuo Esperto Enologo. Come posso aiutarti oggi con il mondo dei vini?' }
+  ]); 
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);

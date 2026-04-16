@@ -3,31 +3,38 @@
 
 export async function callLLM(message) {
   const endpoint = 'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1';
+  
+  // Customizing the prompt to act as an expert (NotebookLM style)
+  const systematicPrompt = `Sei un esperto enologo del Wine Quiz. Rispondi in modo professionale e cordiale in italiano. 
+Utente: ${message}
+Enologo:`;
+
   const payload = {
-    inputs: message,
-    parameters: { max_new_tokens: 150, temperature: 0.7 }
+    inputs: systematicPrompt,
+    parameters: { max_new_tokens: 150, temperature: 0.7, return_full_text: false }
   };
 
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      // If you have a HuggingFace API token, add it here:
-      // Authorization: 'Bearer YOUR_HF_TOKEN'
-    },
-    body: JSON.stringify(payload)
-  });
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
 
-  if (!response.ok) {
-    const err = await response.text();
-    throw new Error(`LLM request failed: ${response.status} ${err}`);
-  }
+    if (!response.ok) throw new Error('Servizio AI momentaneamente non disponibile.');
 
-  const data = await response.json();
-  // The API returns an array of generated texts
-  if (Array.isArray(data) && data.length > 0 && data[0].generated_text) {
-    return data[0].generated_text.trim();
+    const data = await response.json();
+    let text = "";
+    
+    if (Array.isArray(data) && data.length > 0) {
+      text = data[0].generated_text || data[0];
+    } else {
+      text = data.generated_text || JSON.stringify(data);
+    }
+    
+    return text.trim() || "Non ho capito bene, puoi ripetere?";
+  } catch (err) {
+    console.error(err);
+    return "Spiacente, l'esperto è al momento in cantina. Riprova più tardi!";
   }
-  // Fallback for other response shapes
-  return typeof data === 'string' ? data.trim() : JSON.stringify(data);
 }
