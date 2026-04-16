@@ -1,7 +1,7 @@
 import wineContext from "./data/wineContext.json";
 
-// Configurazione Ollama Locale (usiamo /api/generate per massima compatibilità)
-const OLLAMA_URL = "http://127.0.0.1:11434/api/generate";
+// Configurazione Ollama Locale
+const OLLAMA_URL = "http://localhost:11434/api/generate";
 const MODEL_NAME = "deepseek-r1:1.5b";
 
 export async function callLLM(message) {
@@ -12,15 +12,11 @@ export async function callLLM(message) {
 
     const documentContext = wineContext.document_context || "";
 
-    // Costruiamo un prompt unico per /api/generate
     const prompt = `
-      ISTRUZIONI DI SISTEMA:
-      Sei l'Esperto Enologo del Wine Quiz. Rispondi in italiano professionale e conciso.
-      Usa questa conoscenza: ${documentContext} ${contextString}
-      
-      DOMANDA UTENTE: ${message}
-      
-      RISPOSTA DELL'ESPERTO ENOLOGO:
+      SISTEMA: Sei l'Esperto Enologo. Rispondi in italiano.
+      CONTESTO: ${documentContext} ${contextString}
+      DOMANDA: ${message}
+      RISPOSTA:
     `;
 
     const response = await fetch(OLLAMA_URL, {
@@ -36,18 +32,18 @@ export async function callLLM(message) {
     });
 
     if (!response.ok) {
-      throw new Error(`Ollama Error: ${response.status}`);
+      const errorText = await response.text();
+      console.error(`Ollama Error Detail: Status ${response.status}, Body: ${errorText}`);
+      throw new Error(`Errore Server (${response.status})`);
     }
 
     const data = await response.json();
-    let reply = data.response; // Per /api/generate il campo è 'response'
+    let reply = data.response;
 
-    // Pulizia tag <think>
     reply = reply.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
-
     return reply;
   } catch (err) {
-    console.error("Errore Ollama:", err);
-    return "Connessione a Ollama fallita. Controlla che OLLAMA_ORIGINS sia configurato!";
+    console.error("Dettaglio Errore:", err);
+    return `Problema di connessione ad Ollama (${err.message}). Verifica che il server sia attivo e accetti connessioni!`;
   }
 }
