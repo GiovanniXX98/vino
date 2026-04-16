@@ -1,32 +1,26 @@
 import wineContext from "./data/wineContext.json";
 
-// Configurazione Ollama Locale
-const OLLAMA_URL = "http://127.0.0.1:11434/api/chat";
+// Configurazione Ollama Locale (usiamo /api/generate per massima compatibilità)
+const OLLAMA_URL = "http://127.0.0.1:11434/api/generate";
 const MODEL_NAME = "deepseek-r1:1.5b";
 
 export async function callLLM(message) {
   try {
-    // Prepariamo il contesto basato sui tuoi documenti (RAG)
     const contextString = wineContext.core_knowledge.map(k => {
-      return `${k.topic}: ${k.summary || ""} ${k.links ? k.links.join(', ') : ""}`;
+      return `${k.topic}: ${k.summary || ""}`;
     }).join("\n");
 
     const documentContext = wineContext.document_context || "";
 
-    const systemInstruction = `
-      Sei l'Esperto Enologo del Wine Quiz, un assistente specializzato locale. 
-      La tua personalità è: ${wineContext.personality}.
-
-      CONOSCENZA RAG:
-      ${documentContext}
-
-      SINTESI CORE:
-      ${contextString}
-
-      REGOLE:
-      1. Rispondi in italiano professionale.
-      2. Usa i dati tecnici forniti.
-      3. Mantieni le risposte concise e precise.
+    // Costruiamo un prompt unico per /api/generate
+    const prompt = `
+      ISTRUZIONI DI SISTEMA:
+      Sei l'Esperto Enologo del Wine Quiz. Rispondi in italiano professionale e conciso.
+      Usa questa conoscenza: ${documentContext} ${contextString}
+      
+      DOMANDA UTENTE: ${message}
+      
+      RISPOSTA DELL'ESPERTO ENOLOGO:
     `;
 
     const response = await fetch(OLLAMA_URL, {
@@ -36,10 +30,7 @@ export async function callLLM(message) {
       },
       body: JSON.stringify({
         model: MODEL_NAME,
-        messages: [
-          { role: 'system', content: systemInstruction },
-          { role: 'user', content: message }
-        ],
+        prompt: prompt,
         stream: false
       })
     });
@@ -49,14 +40,14 @@ export async function callLLM(message) {
     }
 
     const data = await response.json();
-    let reply = data.message.content;
+    let reply = data.response; // Per /api/generate il campo è 'response'
 
-    // Pulizia eventuale del tag <think> tipico di DeepSeek R1
+    // Pulizia tag <think>
     reply = reply.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
 
     return reply;
   } catch (err) {
     console.error("Errore Ollama:", err);
-    return "Non riesco a connettermi a Ollama. Assicurati che sia attivo sul tuo PC con OLLAMA_ORIGINS configurato!";
+    return "Connessione a Ollama fallita. Controlla che OLLAMA_ORIGINS sia configurato!";
   }
 }
