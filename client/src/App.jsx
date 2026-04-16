@@ -1,36 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import api from './api';
-import Auth from './Auth';
 import Quiz from './Quiz';
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  const [user, setUser] = useState(() => {
+    // Load progress from localStorage on initialization
+    const saved = localStorage.getItem('quiz_user');
+    return saved ? JSON.parse(saved) : { 
+      nome: 'Enologo', 
+      points: 0, 
+      level: 1 
+    };
+  });
 
+  // Save progress to localStorage whenever it changes
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      api.get('/api/user/me').then(res => {
-        setUser(res.data);
-
-      }).catch(() => {
-        localStorage.removeItem('token');
-        navigate('/login');
-      }).finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
-  }, [navigate]);
-
-  if (loading) return <div>Caricamento...</div>;
+    localStorage.setItem('quiz_user', JSON.stringify(user));
+  }, [user]);
 
   return (
-    <Routes>
-      <Route path="/login" element={!user ? <Auth onLogin={setUser} /> : <Navigate to="/" />} />
-      <Route path="/" element={user ? <Quiz user={user} setUser={setUser} /> : <Navigate to="/login" />} />
-    </Routes>
+    <div className="App">
+      <Quiz user={user} setUser={setUser} />
+    </div>
   );
 }
 

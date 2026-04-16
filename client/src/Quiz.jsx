@@ -1,69 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import api from './api';
-import { Wine, Award, LogOut } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Wine, Award, RotateCcw } from 'lucide-react';
+import quizData from './data/quizData.json';
 
 const Quiz = ({ user, setUser }) => {
-  const [quizzes, setQuizzes] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [feedback, setFeedback] = useState(null);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchQuizzes = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const { data } = await api.get('/api/quiz');
-        setQuizzes(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchQuizzes();
-  }, []);
+  const getLevel = (points) => Math.floor(points / 20) + 1;
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-    navigate('/login');
-  };
+  const currentQuiz = quizData[currentIndex];
 
-  const currentQuiz = quizzes[currentIndex];
-
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (selectedOption === null) return;
     
-    try {
-      const token = localStorage.getItem('token');
-      const { data } = await api.post('/api/quiz/answer', {
-        quizId: currentQuiz.id,
-        answerIndex: selectedOption
+    const correct = currentQuiz.answer === selectedOption;
+    const result = {
+      correct,
+      correctAnswer: currentQuiz.answer,
+      newPoints: correct ? user.points + currentQuiz.points : user.points
+    };
+    
+    setFeedback(result);
+    if (correct) {
+      setUser({ 
+        ...user, 
+        points: result.newPoints, 
+        level: getLevel(result.newPoints) 
       });
-      
-      setFeedback(data);
-      if (data.correct) {
-        setUser({ ...user, points: data.newPoints, level: data.newLevel });
-      }
-    } catch (err) {
-      console.error(err);
     }
   };
 
   const nextQuestion = () => {
     setFeedback(null);
     setSelectedOption(null);
-    setCurrentIndex((prev) => (prev + 1) % quizzes.length);
+    setCurrentIndex((prev) => (prev + 1) % quizData.length);
   };
 
-  if (!quizzes.length) return <div style={{padding:'2rem'}}>Caricamento quiz...</div>;
+  const resetGame = () => {
+    if (window.confirm("Sei sicuro di voler resettare tutti i tuoi punti?")) {
+      const resetUser = { nome: 'Enologo', points: 0, level: 1 };
+      setUser(resetUser);
+      setFeedback(null);
+      setSelectedOption(null);
+      setCurrentIndex(0);
+    }
+  };
+
+  if (!quizData.length) return <div style={{padding:'2rem'}}>Caricamento quiz...</div>;
 
   return (
     <div className="quiz-container">
       <div className="header">
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <img src="/vino/logo.png" alt="Logo" style={{ width: '60px', height: '60px', borderRadius: '50%', border: '2px solid var(--accent)' }} />
           <h2>Benvenuto, {user.nome}</h2>
         </div>
+
         <div className="header-stats">
           <div className="stat-badge">
             <Award size={24} /> Livello {user.level}
@@ -71,8 +64,8 @@ const Quiz = ({ user, setUser }) => {
           <div className="stat-badge">
             <Wine size={24} /> {user.points} pt
           </div>
-          <button onClick={handleLogout} className="btn" style={{width:'auto', padding:'0.5rem 1rem'}}>
-            <LogOut size={20} />
+          <button onClick={resetGame} className="btn" title="Resetta Progressi" style={{width:'auto', padding:'0.5rem 1rem', background: 'var(--error)'}}>
+            <RotateCcw size={20} />
           </button>
         </div>
       </div>
