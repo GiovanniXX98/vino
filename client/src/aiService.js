@@ -1,3 +1,4 @@
+// v1.2 - Forcing update for model name 1.5-flash-latest
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import wineContext from "./data/wineContext.json";
 import { GEMINI_API_KEY } from "./config";
