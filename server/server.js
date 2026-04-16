@@ -122,7 +122,8 @@ app.get('/api/user/me', authRequired, (req, res) => {
   res.json({ id: user.id, nome: user.nome, email: user.email, points: user.points, level: user.level });
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server Node in ascolto su http://localhost:${PORT}`);
+  console.log(`Server in ascolto su porta ${PORT}`);
 });
+

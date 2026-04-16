@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from './api';
 import { Wine, Award, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,9 +14,7 @@ const Quiz = ({ user, setUser }) => {
     const fetchQuizzes = async () => {
       try {
         const token = localStorage.getItem('token');
-        const { data } = await axios.get('http://localhost:3000/api/quiz', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const { data } = await api.get('/api/quiz');
         setQuizzes(data);
       } catch (err) {
         console.error(err);
@@ -38,10 +36,10 @@ const Quiz = ({ user, setUser }) => {
     
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.post('http://localhost:3000/api/quiz/answer', {
+      const { data } = await api.post('/api/quiz/answer', {
         quizId: currentQuiz.id,
         answerIndex: selectedOption
-      }, { headers: { Authorization: `Bearer ${token}` } });
+      });
       
       setFeedback(data);
       if (data.correct) {

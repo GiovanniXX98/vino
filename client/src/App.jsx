@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from './api';
 import Auth from './Auth';
 import Quiz from './Quiz';
 
@@ -12,10 +12,9 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      axios.get('http://localhost:3000/api/user/me', {
-        headers: { Authorization: `Bearer ${token}` }
-      }).then(res => {
+      api.get('/api/user/me').then(res => {
         setUser(res.data);
+
       }).catch(() => {
         localStorage.removeItem('token');
         navigate('/login');

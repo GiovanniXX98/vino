@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from './api';
 import { useNavigate } from 'react-router-dom';
 
 const Auth = ({ onLogin }) => {
@@ -15,7 +15,7 @@ const Auth = ({ onLogin }) => {
     setMsg('');
     try {
       if (isLogin) {
-        const { data } = await axios.post('http://localhost:3000/api/login', {
+        const { data } = await api.post('/api/login', {
           email: formData.email,
           password: formData.password
         });
@@ -23,7 +23,7 @@ const Auth = ({ onLogin }) => {
         onLogin(data.user);
         navigate('/');
       } else {
-        const { data } = await axios.post('http://localhost:3000/api/register', formData);
+        const { data } = await api.post('/api/register', formData);
         setMsg(data.message);
         setIsLogin(true);
       }
