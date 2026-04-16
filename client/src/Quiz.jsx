@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Wine, Award, RotateCcw } from 'lucide-react';
+import { Wine, Award, RotateCcw, ArrowLeft } from 'lucide-react';
 import quizData from './data/quizData.json';
 import Chatbot from './Chatbot';
 
@@ -67,7 +67,10 @@ const Quiz = ({ user, setUser }) => {
       {showQuiz && (
         <>
           <div className="header">
-            <div className="header-stats">
+            <button onClick={() => setShowQuiz(false)} className="btn-icon" title="Torna alla Home" style={{ marginRight: '1rem' }}>
+              <ArrowLeft size={24} />
+            </button>
+            <div className="header-stats" style={{ flex: 1, justifyContent: 'flex-end' }}>
               <div className="stat-badge">
                 <Award size={24} /> Livello {user.level}
               </div>

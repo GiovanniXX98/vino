@@ -42,7 +42,7 @@ const Chatbot = ({ onClose }) => {
   };
 
   return (
-    <div className="chatbot-panel">
+    <div className="chatbot-panel" onClick={(e) => e.stopPropagation()} onPointerDown={(e) => e.stopPropagation()}>
       <div className="chatbot-header">
         <h4>Chat AI</h4>
         <button className="btn" onClick={onClose}>✕</button>
