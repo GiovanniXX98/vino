@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from 'react';
 import { Send, X, Settings } from 'lucide-react';
 import { callLLM } from './aiService';
 
