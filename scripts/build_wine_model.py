@@ -9,7 +9,7 @@ BASE_MODEL = "deepseek-r1:1.5b"
 TARGET_MODEL = "wine-expert"
 
 def build_model():
-    print(f"--- Creazione Modello Ollama: {TARGET_MODEL} ---")
+    print(f"--- Affinamento Modello Ollama: {TARGET_MODEL} ---")
     
     # 1. Caricamento conoscenza dai documenti (JSON)
     if not os.path.exists(JSON_PATH):
@@ -19,10 +19,10 @@ def build_model():
     with open(JSON_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
     
-    personality = data.get("personality", "Un esperto enologo professionale.")
+    personality = data.get("personality", "Un aiutante enologo empatico e cordiale.")
     document_context = data.get("document_context", "")
     
-    # 2. Generazione del Modelfile
+    # 2. Generazione del Modelfile con regole di lingua e personalità
     modelfile_content = f"""
 FROM {BASE_MODEL}
 
@@ -32,35 +32,35 @@ PARAMETER stop "<|im_start|>"
 PARAMETER stop "<|im_end|>"
 PARAMETER stop "<|endoftext|>"
 
-# Personalità e Conoscenza
+# Personalità, Conoscenza e Regole Linguistiche
 SYSTEM \"\"\"
 {personality}
 
-Dati specialistici sui tuoi documenti di vino:
+Dati specialistici sui tuoi documenti di vino (Usa questi per le risposte tecniche):
 {document_context}
 
-REGOLE COMPORTAMENTALI:
-- Rispondi sempre in italiano.
-- Sii estremamente tecnico se richiesto, basandoti sui dati sopra.
-- Se non conosci la risposta nei dati forniti, dillo chiaramente.
-- Non inventare fatti non presenti nel contesto documentale.
+REGOLE COMPORTAMENTALI (MANDATORIE):
+1. LINGUA: Rispondi **esclusivamente** in lingua italiana. 
+2. ECCEZIONE TECNICA: Se utilizzi termini tecnici vinicoli o enologici in inglese (es. 'tannins', 'late harvest', 'cold stabilization'), puoi integrare spiegazioni o risposte bilingue, ma la struttura portante deve rimanere in italiano.
+3. EMPATIA: Sii sempre un aiutante empatico, gentile e pronto a incoraggiare l'utente nel suo apprendimento.
+4. COERENZA: Se non trovi l'informazione nei dati forniti, ammettilo garbatamente e offri assistenza generale basata sulla tua natura di enologo.
 \"\"\"
 """
     
     with open(MODELFILE_PATH, "w", encoding="utf-8") as f:
         f.write(modelfile_content)
     
-    print(f"Modelfile generato in {MODELFILE_PATH}")
+    print(f"Modelfile aggiornato in {MODELFILE_PATH}")
 
-    # 3. Esecuzione del comando Ollama per creare il modello
+    # 3. Aggiornamento del modello
     print(f"Esecuzione: ollama create {TARGET_MODEL} -f {MODELFILE_PATH}...")
     try:
         result = subprocess.run(["ollama", "create", TARGET_MODEL, "-f", MODELFILE_PATH], 
                               capture_output=True, text=True, check=True)
-        print("Successo! Modello creato correttamente.")
+        print("Successo! Personalità e regole lingua aggiornate.")
         print(result.stdout)
     except subprocess.CalledProcessError as e:
-        print(f"Errore durante la creazione del modello: {e.stderr}")
+        print(f"Errore durante l'aggiornamento: {e.stderr}")
     finally:
         # Pulizia
         if os.path.exists(MODELFILE_PATH):
