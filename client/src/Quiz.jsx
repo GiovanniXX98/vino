@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Wine, Award, RotateCcw } from 'lucide-react';
 import quizData from './data/quizData.json';
+import Chatbot from './Chatbot';
 
 const Quiz = ({ user, setUser }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   const getLevel = (points) => Math.floor(points / 20) + 1;
   const currentQuiz = quizData[currentIndex];
@@ -42,6 +44,9 @@ const Quiz = ({ user, setUser }) => {
     }
   };
 
+  const openChat = () => setShowChat(true);
+  const closeChat = () => setShowChat(false);
+
   if (!quizData.length) return <div style={{ padding: '2rem' }}>Caricamento quiz...</div>;
 
   return (
@@ -52,6 +57,9 @@ const Quiz = ({ user, setUser }) => {
           <div className="logo-circle">
             <img src="/vino/logo.png" alt="Logo" />
           </div>
+          <button className="btn llm-btn" onClick={(e) => { e.stopPropagation(); openChat(); }} style={{ marginTop: '2rem' }}>
+            Chat with AI
+          </button>
         </div>
       )}
       {showQuiz && (
@@ -111,6 +119,7 @@ const Quiz = ({ user, setUser }) => {
           </div>
         </>
       )}
+      {showChat && <Chatbot onClose={closeChat} />}
     </div>
   );
 };
