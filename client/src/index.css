@@ -120,23 +120,59 @@ h1, h2, h3 {
 
 /* Quiz Styles */
 .quiz-container {
-  max-width: 800px;
+  max-width: 90%;
   margin: 2rem auto;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 3rem;
-  padding-bottom: 1rem;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--primary);
 }
 
 .header-stats {
   display: flex;
-  gap: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Logo styling */
+.logo-circle {
+  background: white;
+  border-radius: 50%;
+  padding: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-circle img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+}
+
+@media (max-width: 600px) {
+  .quiz-container {
+    padding: 1rem;
+  }
+  .header {
+    flex-direction: column;
+  }
+  .header-stats {
+    justify-content: center;
+  }
+  .logo-circle img {
+    width: 120px;
+    height: 120px;
+  }
 }
 
 .stat-badge {
