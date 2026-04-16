@@ -2,7 +2,7 @@ import wineContext from "./data/wineContext.json";
 
 // Configurazione Ollama Locale
 const OLLAMA_URL = "http://localhost:11434/api/generate";
-const MODEL_NAME = "deepseek-r1:1.5b";
+const MODEL_NAME = "wine-expert";
 
 export async function callLLM(message) {
   try {
