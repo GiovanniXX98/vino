@@ -49,20 +49,28 @@ const Chatbot = ({ onClose }) => {
       </div>
       <div className="chatbot-messages">
         {messages.map((msg, idx) => (
-          <div key={idx} className={`chatbot-message ${msg.role}`}> {msg.text} </div>
+          <div key={idx} className={`chatbot-message ${msg.role}`}>
+            {msg.text}
+          </div>
         ))}
-        {loading && <div className="chatbot-message assistant">...</div>}
+        {loading && (
+          <div className="chatbot-message assistant" style={{ fontStyle: 'italic', opacity: 0.7 }}>
+            L'enologo sta pensando...
+          </div>
+        )}
         <div ref={messagesEndRef} />
       </div>
       <div className="chatbot-input">
         <textarea
-          rows={2}
+          rows={1}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKey}
-          placeholder="Scrivi un messaggio..."
+          placeholder="Chiedi all'esperto..."
         />
-        <button className="btn" onClick={sendMessage} disabled={loading}>Invia</button>
+        <button className="send-btn" onClick={sendMessage} disabled={loading}>
+          Invia
+        </button>
       </div>
     </div>
   );

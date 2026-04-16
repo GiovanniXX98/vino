@@ -1,40 +1,41 @@
-// Simple AI service wrapper using HuggingFace Inference API (no API key required for public models)
-// You can replace the endpoint with another free LLM service if desired.
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import wineContext from "./data/wineContext.json";
+import { GEMINI_API_KEY } from "./config";
+
+// Inizializzazione del modello Gemini
+// Se l'API Key manca, restituiamo un messaggio di istruzioni
+const genAI = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
 
 export async function callLLM(message) {
-  const endpoint = 'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1';
-  
-  // Customizing the prompt to act as an expert (NotebookLM style)
-  const systematicPrompt = `Sei un esperto enologo del Wine Quiz. Rispondi in modo professionale e cordiale in italiano. 
-Utente: ${message}
-Enologo:`;
-
-  const payload = {
-    inputs: systematicPrompt,
-    parameters: { max_new_tokens: 150, temperature: 0.7, return_full_text: false }
-  };
+  if (!genAI) {
+    return "Ciao! Per attivare l'Esperto Enologo (NotebookLM style), incolla la tua Gemini API Key nel file 'client/src/config.js'. Puoi ottenerne una gratuita su Google AI Studio!";
+  }
 
   try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    if (!response.ok) throw new Error('Servizio AI momentaneamente non disponibile.');
+    // Prepariamo il contesto basato sui tuoi documenti (RAG)
+    const contextString = wineContext.core_knowledge.map(k => {
+      return `${k.topic}: ${k.summary || ""} ${k.links ? k.links.join(', ') : ""}`;
+    }).join("\n");
 
-    const data = await response.json();
-    let text = "";
-    
-    if (Array.isArray(data) && data.length > 0) {
-      text = data[0].generated_text || data[0];
-    } else {
-      text = data.generated_text || JSON.stringify(data);
-    }
-    
-    return text.trim() || "Non ho capito bene, puoi ripetere?";
+    const systemInstruction = `
+      Sei l'Esperto Enologo del Wine Quiz. La tua personalità è: ${wineContext.personality}.
+      Hai a disposizione la seguente conoscenza specialistica estratta dai tuoi 40 documenti:
+      ${contextString}
+
+      REGOLE:
+      1. Rispondi SEMPRE in italiano.
+      2. Sii tecnico ma accessibile.
+      3. Se non conosci la risposta, suggerisci di consultare i siti OIV o Vason citati nel contesto.
+      4. Mantieni uno stile elegante e professionale.
+    `;
+
+    const result = await model.generateContent([systemInstruction, message]);
+    const response = await result.response;
+    return response.text();
   } catch (err) {
-    console.error(err);
-    return "Spiacente, l'esperto è al momento in cantina. Riprova più tardi!";
+    console.error("Errore Gemini API:", err);
+    return "Spiacente, ho avuto un problema di connessione alla cantina dati. Verifica la tua API Key!";
   }
 }
