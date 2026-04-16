@@ -1,7 +1,7 @@
 import wineContext from "./data/wineContext.json";
 
 // Configurazione Ollama Locale
-const OLLAMA_URL = "http://localhost:11434/api/chat";
+const OLLAMA_URL = "http://127.0.0.1:11434/api/chat";
 const MODEL_NAME = "deepseek-r1:1.5b";
 
 export async function callLLM(message) {
