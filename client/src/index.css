@@ -228,7 +228,7 @@ h1, h2, h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 1.5rem;
+  padding: 1rem 1.5rem;
   background: linear-gradient(90deg, var(--primary), var(--primary-light));
   color: white;
   border-bottom: 1px solid rgba(212, 175, 55, 0.2);
@@ -237,7 +237,68 @@ h1, h2, h3 {
 .chatbot-header h4 {
   margin: 0;
   font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
   letter-spacing: 0.5px;
+}
+
+.close-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: var(--error);
+  transform: rotate(90deg);
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: white;
+  opacity: 0.8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.icon-btn:hover {
+  opacity: 1;
+  transform: rotate(30deg);
+}
+
+.settings-panel {
+  background: rgba(0,0,0,0.4);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  font-size: 0.85rem;
+  color: var(--secondary);
+}
+
+.settings-panel input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--gray);
+  background: #1a1a1a;
+  color: white;
+}
+
+.save-btn {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .chatbot-messages {
@@ -276,27 +337,30 @@ h1, h2, h3 {
 .chatbot-input {
   display: flex;
   padding: 1rem;
-  background: rgba(255,255,255,0.05);
-  border-top: 1px solid rgba(212, 175, 55, 0.1);
+  background: rgba(45, 45, 45, 0.9);
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
   gap: 0.8rem;
+  align-items: flex-end;
 }
 
 .chatbot-input textarea {
   flex: 1;
   resize: none;
   padding: 0.8rem 1rem;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   border-radius: 12px;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.3);
   color: white;
   font-size: 0.95rem;
   transition: all 0.2s;
+  min-height: 45px;
+  max-height: 120px;
 }
 
 .chatbot-input textarea:focus {
   outline: none;
   border-color: var(--secondary);
-  background: rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
 .chatbot-input .send-btn {
@@ -304,10 +368,14 @@ h1, h2, h3 {
   color: #000;
   border: none;
   border-radius: 12px;
-  padding: 0 1.2rem;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-weight: bold;
   transition: all 0.2s;
+  flex-shrink: 0;
 }
 
 .chatbot-input .send-btn:hover {

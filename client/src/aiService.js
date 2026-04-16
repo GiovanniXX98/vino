@@ -3,13 +3,17 @@ import wineContext from "./data/wineContext.json";
 import { GEMINI_API_KEY } from "./config";
 
 // Inizializzazione del modello Gemini
-// Se l'API Key manca, restituiamo un messaggio di istruzioni
-const genAI = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
+// Cerchiamo la chiave in localStorage per sicurezza (non viene caricata su GitHub)
+const getApiKey = () => localStorage.getItem('gemini_api_key') || GEMINI_API_KEY;
 
 export async function callLLM(message) {
-  if (!genAI) {
-    return "Ciao! Per attivare l'Esperto Enologo (NotebookLM style), incolla la tua Gemini API Key nel file 'client/src/config.js'. Puoi ottenerne una gratuita su Google AI Studio!";
+  const currentKey = getApiKey();
+  
+  if (!currentKey) {
+    return "Ciao! Per attivare l'Esperto Enologo, clicca sull'icona ⚙️ nella chat e incolla la tua Gemini API Key.";
   }
+
+  const genAI = new GoogleGenerativeAI(currentKey);
 
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
