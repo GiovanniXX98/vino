@@ -57,9 +57,11 @@ const Quiz = ({ user, setUser }) => {
           <div className="logo-circle">
             <img src="/vino/logo.png" alt="Logo" />
           </div>
-          <button className="btn llm-btn" onClick={(e) => { e.stopPropagation(); openChat(); }} style={{ marginTop: '2rem' }}>
-            Chat with AI
-          </button>
+          <div className="llm-container">
+            <button className="btn llm-btn" onClick={(e) => { e.stopPropagation(); openChat(); }}>
+              Chat with NotebookLM AI
+            </button>
+          </div>
         </div>
       )}
       {showQuiz && (
