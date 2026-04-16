@@ -4,7 +4,7 @@ import subprocess
 
 # Percorsi dei file
 JSON_PATH = "client/src/data/wineContext.json"
-MODELFILE_PATH = "Modelfile_wine_expert"
+MODELFILE_PATH = "Modelfile"
 BASE_MODEL = "deepseek-r1:1.5b"
 TARGET_MODEL = "wine-expert"
 
@@ -61,10 +61,8 @@ REGOLE COMPORTAMENTALI (MANDATORIE):
         print(result.stdout)
     except subprocess.CalledProcessError as e:
         print(f"Errore durante l'aggiornamento: {e.stderr}")
-    finally:
-        # Pulizia
-        if os.path.exists(MODELFILE_PATH):
-            os.remove(MODELFILE_PATH)
+    
+    # Rimosso il blocco finally per lasciare il Modelfile a disposizione dell'utente
 
 if __name__ == "__main__":
     build_model()
