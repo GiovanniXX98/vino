@@ -16,7 +16,7 @@ export async function callLLM(message) {
   const genAI = new GoogleGenerativeAI(currentKey);
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
     // Prepariamo il contesto basato sui tuoi documenti (RAG)
     const contextString = wineContext.core_knowledge.map(k => {
