@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "question": "Secondo il Regolamento UE 934/2018, come sono classificati Premium Rouge e Safefruit?",
+    "options": ["Additivi", "Coadiuvanti tecnologici - Lieviti per vinificazione", "Enzimi", "Nutrienti inorganici"],
+    "answer": 1,
+    "points": 10
+  },
+  {
+    "id": 2,
+    "question": "Nella vinificazione moderna, qual è la funzione principale degli enzimi come Flottozima L?",
+    "options": ["Aumentare il grado alcolico", "Chiarifica e flottazione dei mosti", "Arrestare la fermentazione", "Aggiungere colore rosso al vino"],
+    "answer": 1,
+    "points": 10
+  },
+  {
+    "id": 3,
+    "question": "Cosa è divenuto obbligatorio indicare nelle nuove etichettature dei vini (Wine Labelling)?",
+    "options": ["Solo la gradazione alcolica", "Dichiarazione nutrizionale e lista degli ingredienti", "Il nome dell'enologo", "Il pH esatto del vino"],
+    "answer": 1,
+    "points": 15
+  },
+  {
+    "id": 4,
+    "question": "Oenoppia è stata fondata nel 2009 principalmente da aziende specializzate in:",
+    "options": ["Produzione di tappi di sughero", "Prodotti enologici (additivi e coadiuvanti)", "Macchine imbottigliatrici", "Stampa di etichette"],
+    "answer": 1,
+    "points": 10
+  },
+  {
+    "id": 5,
+    "question": "Quale lievito CHR Hansen è tipicamente utilizzato?",
+    "options": ["Premium Fructo", "Frootzen", "Extrared L", "Triton"],
+    "answer": 1,
+    "points": 20
+  }
+]
