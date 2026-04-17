@@ -1,7 +1,7 @@
 import wineContext from "./data/wineContext.json";
+import { OLLAMA_BASE_URL } from "./config";
 
-// Configurazione Ollama Locale
-const OLLAMA_URL = "http://localhost:11434/api/generate";
+// Configurazione Ollama Dinamica
 const MODEL_NAME = "wine-expert";
 
 export async function callLLM(message) {
@@ -19,7 +19,7 @@ export async function callLLM(message) {
       RISPOSTA:
     `;
 
-    const response = await fetch(OLLAMA_URL, {
+    const response = await fetch(OLLAMA_BASE_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
