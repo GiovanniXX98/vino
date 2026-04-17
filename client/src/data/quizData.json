@@ -1,37 +1,74 @@
 [
   {
     "id": 1,
-    "question": "Secondo il Regolamento UE 934/2018, come sono classificati Premium Rouge e Safefruit?",
-    "options": ["Additivi", "Coadiuvanti tecnologici - Lieviti per vinificazione", "Enzimi", "Nutrienti inorganici"],
-    "answer": 1,
+    "question": "Sull'etichetta leggi 'contiene solfiti'. Dovresti preoccuparti?",
+    "options": [
+      "Sì — è un conservante chimico artificiale e pericoloso",
+      "Solo se sei celiaco",
+      "No — è obbligatorio scriverlo anche a bassissime dosi, e il vino lo produce già da solo durante la fermentazione",
+      "Dipende dal paese di produzione"
+    ],
+    "answer": 2,
     "points": 10
   },
   {
     "id": 2,
-    "question": "Nella vinificazione moderna, qual è la funzione principale degli enzimi come Flottozima L?",
-    "options": ["Aumentare il grado alcolico", "Chiarifica e flottazione dei mosti", "Arrestare la fermentazione", "Aggiungere colore rosso al vino"],
+    "question": "La bentonite nel vino suona inquietante. Cos'è davvero?",
+    "options": [
+      "Un additivo chimico di sintesi per colorare il vino",
+      "Un'argilla naturale vulcanica usata per chiarificare — e che non rimane nel vino finito",
+      "Un conservante artificiale vietato in molti paesi",
+      "Una proteina animale usata per stabilizzare"
+    ],
     "answer": 1,
     "points": 10
   },
   {
     "id": 3,
-    "question": "Cosa è divenuto obbligatorio indicare nelle nuove etichettature dei vini (Wine Labelling)?",
-    "options": ["Solo la gradazione alcolica", "Dichiarazione nutrizionale e lista degli ingredienti", "Il nome dell'enologo", "Il pH esatto del vino"],
-    "answer": 1,
-    "points": 15
-  },
-  {
-    "id": 4,
-    "question": "Oenoppia è stata fondata nel 2009 principalmente da aziende specializzate in:",
-    "options": ["Produzione di tappi di sughero", "Prodotti enologici (additivi e coadiuvanti)", "Macchine imbottigliatrici", "Stampa di etichette"],
+    "question": "Gelatina nel vino bianco. Sei vegano e ora sei preoccupato. Hai ragione?",
+    "options": [
+      "Sì — la gelatina animale rimane nel vino e lo rende non vegano",
+      "No — la gelatina viene tutta rimossa con la filtrazione e non lascia tracce rilevabili",
+      "Solo se il produttore non lo dichiara in etichetta",
+      "Dipende dalla quantità usata"
+    ],
     "answer": 1,
     "points": 10
   },
   {
+    "id": 4,
+    "question": "'Acido tartarico aggiunto' — suona come roba di laboratorio. Dovresti storcere il naso?",
+    "options": [
+      "Assolutamente sì, è un acidificante artificiale",
+      "Forse — dipende dalla quantità",
+      "No — è l'acido più naturale dell'uva, già presente nei chicchi. Lo aggiungiamo solo per correggere il pH",
+      "Solo se combinato con SO₂"
+    ],
+    "answer": 2,
+    "points": 10
+  },
+  {
     "id": 5,
-    "question": "Quale lievito CHR Hansen è tipicamente utilizzato?",
-    "options": ["Premium Fructo", "Frootzen", "Extrared L", "Triton"],
+    "question": "Un produttore dichiara di usare lieviti selezionati invece dei lieviti indigeni spontanei. È un vino 'meno naturale' e quindi peggiore?",
+    "options": [
+      "Sì — i lieviti selvaggi danno sempre vini più autentici e complessi",
+      "Non necessariamente — i lieviti selezionati garantiscono fermentazioni controllate, sicure e riproducibili. La qualità dipende da come si lavora",
+      "Sì — i lieviti selezionati sono OGM",
+      "No, ma bisogna dichiararlo obbligatoriamente in etichetta"
+    ],
     "answer": 1,
-    "points": 20
+    "points": 10
+  },
+  {
+    "id": 6,
+    "question": "Un vino 'senza solfiti aggiunti' è automaticamente più sano e migliore per te?",
+    "options": [
+      "Sì — meno chimica è sempre meglio",
+      "Sì, ma solo per chi è intollerante",
+      "Non necessariamente — contiene comunque solfiti naturali prodotti dalla fermentazione, ed è spesso meno stabile e più soggetto a difetti durante il trasporto e la conservazione",
+      "Sì — ed è obbligatorio per i vini biologici"
+    ],
+    "answer": 2,
+    "points": 10
   }
 ]
