@@ -124,8 +124,8 @@ const Quiz = ({ user, setUser }) => {
               <span className="swipe-text">SWIPE UP</span>
               <div className="swipe-arrow"></div>
             </div>
-            <p className="start-instruction">Scorri verso l'alto per iniziare</p>
-            
+
+
             <div className="ai-status-panel">
               {aiStatus === 'checking' && (
                 <div className="ai-status checking">
