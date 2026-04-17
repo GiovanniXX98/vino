@@ -44,6 +44,7 @@ const Quiz = ({ user, setUser }) => {
       correct: isCorrect,
       correctAnswer: currentQuiz.answer,
       newPoints: isCorrect ? user.points + currentQuiz.points : user.points,
+      explanation: currentQuiz.explanation || null,
     };
     setSelectedOption(idx);
     setFeedback(result);
@@ -215,6 +216,12 @@ const Quiz = ({ user, setUser }) => {
                   <h3 style={{ color: 'var(--success)' }}>Risposta Esatta! +{currentQuiz.points}pt</h3>
                 ) : (
                   <h3 style={{ color: 'var(--error)' }}>Risposta Sbagliata! Riprova la prossima volta.</h3>
+                )}
+                {feedback.explanation && (
+                  <div className="explanation-card">
+                    <span className="explanation-icon">💡</span>
+                    <p>{feedback.explanation}</p>
+                  </div>
                 )}
                 <button className="btn submit-btn" onClick={nextQuestion} style={{ marginTop: '1rem' }}>
                   Prossima Domanda

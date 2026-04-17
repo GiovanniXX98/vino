@@ -9,7 +9,8 @@
       "Dipende dal paese di produzione"
     ],
     "answer": 2,
-    "points": 10
+    "points": 10,
+    "explanation": "L'anidride solforosa si forma naturalmente in ogni fermentazione alcolica. La scritta 'contiene solfiti' è obbligatoria per legge sopra i 10 mg/l — una soglia bassissima. Chi soffre di reazioni ai solfiti di solito ha problemi con frutta secca e cibi confezionati molto prima che col vino. L'unica eccezione reale sono i soggetti asmatici sensibili."
   },
   {
     "id": 2,
@@ -21,7 +22,8 @@
       "Una proteina animale usata per stabilizzare"
     ],
     "answer": 1,
-    "points": 10
+    "points": 10,
+    "explanation": "La bentonite è un'argilla vulcanica naturalissima, usata da millenni anche nell'industria alimentare e cosmetica. In cantina si lega alle proteine instabili del mosto, precipita sul fondo e viene eliminata con la filtrazione. Nel vino in bottiglia non ne rimane praticamente traccia: è un coadiuvante tecnologico, non un additivo."
   },
   {
     "id": 3,
@@ -33,7 +35,8 @@
       "Dipende dalla quantità usata"
     ],
     "answer": 1,
-    "points": 10
+    "points": 10,
+    "explanation": "La gelatina è usata come coadiuvante chiarificante: si lega ai tannini in eccesso e precipita. Dopo la filtrazione non rimane nel vino in quantità rilevabili. Detto questo, molti produttori ora preferiscono alternative vegane come la bentonite o proteine di pisello — e alcuni lo comunicano in etichetta. Se sei vegano puoi cercare la certificazione V-Label."
   },
   {
     "id": 4,
@@ -45,7 +48,8 @@
       "Solo se combinato con SO₂"
     ],
     "answer": 2,
-    "points": 10
+    "points": 10,
+    "explanation": "L'acido tartarico è il principale acido organico dell'uva — quello che forma i famosi cristalli di tartrato (quelle scaglie bianche innocue che a volte si trovano sul tappo o sul fondo della bottiglia). Aggiungerlo al vino è come aggiungere sale marino a un piatto: stessa molecola, diversa provenienza. Serve a correggere l'acidità nei millesimi caldi, dove l'uva matura troppo e perde acidità naturale."
   },
   {
     "id": 5,
@@ -57,7 +61,8 @@
       "No, ma bisogna dichiararlo obbligatoriamente in etichetta"
     ],
     "answer": 1,
-    "points": 10
+    "points": 10,
+    "explanation": "I lieviti selezionati non sono OGM — sono ceppi naturali di Saccharomyces cerevisiae selezionati e moltiplicati. Usarli significa avere controllo sulla fermentazione, ridurre il rischio di difetti (acidità volatile, odori anomali) e valorizzare gli aromi varietali. I lieviti indigeni danno complessità ma anche imprevedibilità. Nessuno dei due approcci è oggettivamente superiore: dipende dall'obiettivo del vino."
   },
   {
     "id": 6,
@@ -69,6 +74,7 @@
       "Sì — ed è obbligatorio per i vini biologici"
     ],
     "answer": 2,
-    "points": 10
+    "points": 10,
+    "explanation": "Ogni vino contiene solfiti, perché i lieviti li producono durante la fermentazione (5–30 mg/l anche senza aggiunte). Un vino 'senza solfiti aggiunti' ha semplicemente meno SO₂ totale — ma può essere più instabile, soggetto a ossidazione e rifermentazioni in bottiglia se non gestito con estrema cura. I vini biologici certificati possono usare SO₂, ma a dosi inferiori ai convenzionali. 'Senza solfiti' non è sinonimo di 'più sano' né di 'migliore'."
   }
 ]
