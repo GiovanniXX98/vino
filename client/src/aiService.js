@@ -1,5 +1,5 @@
 import wineContext from "./data/wineContext.json";
-import { OLLAMA_BASE_URL } from "./config";
+import { OLLAMA_BASE_URL, OLLAMA_IP } from "./config";
 
 // Configurazione Ollama Dinamica
 const MODEL_NAME = "wine-expert";
