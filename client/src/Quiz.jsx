@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Wine, Award, RotateCcw, ArrowLeft } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Wine, Award, RotateCcw, ArrowLeft, ShieldCheck, ShieldAlert, Loader2 } from 'lucide-react';
 import quizData from './data/quizData.json';
 import Chatbot from './Chatbot';
+import { OLLAMA_BASE_URL, OLLAMA_IP } from './config';
 
 const Quiz = ({ user, setUser }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,6 +12,27 @@ const Quiz = ({ user, setUser }) => {
   const [showChat, setShowChat] = useState(false);
   const [dragStart, setDragStart] = useState(null);
   const [dragOffset, setDragOffset] = useState(0);
+  const [aiStatus, setAiStatus] = useState('checking'); // 'checking', 'available', 'locked'
+
+  useEffect(() => {
+    const checkAi = async () => {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 secondi timeout
+        
+        await fetch(OLLAMA_BASE_URL.replace('/api/generate', ''), { 
+          method: 'GET',
+          signal: controller.signal
+        });
+        setAiStatus('available');
+        clearTimeout(timeoutId);
+      } catch (err) {
+        console.warn("AI Connection check failed:", err);
+        setAiStatus('locked');
+      }
+    };
+    checkAi();
+  }, []);
 
   const getLevel = (points) => Math.floor(points / 20) + 1;
   const currentQuiz = quizData[currentIndex];
@@ -103,11 +125,42 @@ const Quiz = ({ user, setUser }) => {
             </div>
             <p className="start-instruction">Scorri verso l'alto per iniziare</p>
           </div>
-          <div className="llm-container" style={{ opacity: 1 - dragOffset / 100 }}>
-            <button className="btn llm-btn" onClick={(e) => { e.stopPropagation(); openChat(); }}>
-              Chat con l'Esperto AI
-            </button>
-          </div>
+            <div className="ai-status-panel" style={{ opacity: 1 - dragOffset / 100 }}>
+              {aiStatus === 'checking' && (
+                <div className="ai-status checking">
+                  <Loader2 className="spinning" size={18} />
+                  <span>Verifica connessione AI...</span>
+                </div>
+              )}
+              {aiStatus === 'available' && (
+                <div className="ai-status available">
+                  <ShieldCheck size={18} />
+                  <span>Esperto AI Pronto</span>
+                </div>
+              )}
+              {aiStatus === 'locked' && (
+                <div className="ai-status locked">
+                  <ShieldAlert size={18} />
+                  <span>Connessione AI Protetta</span>
+                  <a 
+                    href={`https://${OLLAMA_IP}:11435`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="unlock-link"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Sblocca ora
+                  </a>
+                </div>
+              )}
+              <button 
+                className={`btn llm-btn ${aiStatus === 'available' ? 'pulse' : ''}`} 
+                onClick={(e) => { e.stopPropagation(); openChat(); }}
+                disabled={aiStatus === 'checking'}
+              >
+                {aiStatus === 'locked' ? "Riprova Chat" : "Chat con l'Esperto AI"}
+              </button>
+            </div>
         </div>
       )}
       {showQuiz && (
