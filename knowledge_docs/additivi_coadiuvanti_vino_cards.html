@@ -1,0 +1,245 @@
+
+<style>
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+.card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem 1.1rem;
+  border-left: 3px solid var(--accent);
+}
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.card-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+.badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.badge-add {
+  background: #EEEDFE;
+  color: #3C3489;
+}
+.badge-coad {
+  background: #E1F5EE;
+  color: #085041;
+}
+.card-function {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.card-caption {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  line-height: 1.4;
+  border-top: 0.5px solid var(--color-border-tertiary);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+</style>
+
+<h2 class="sr-only">Elenco additivi e coadiuvanti enologici con descrizione e caption</h2>
+
+<p class="section-label">Additivi — rimangono nel vino</p>
+
+<div class="cards">
+
+  <div class="card" style="--accent: #534AB7;">
+    <div class="card-top">
+      <span class="card-name">Anidride solforosa (SO₂) e metabisolfito di potassio</span>
+      <span class="badge badge-add">Additivo</span>
+    </div>
+    <p class="card-function">Conservante e antiossidante. Protegge il vino dall'ossidazione, blocca i microrganismi indesiderati e stabilizza il colore. Presente naturalmente nella fermentazione — noi ne aggiungiamo un po' di più.</p>
+    <p class="card-caption">"Il guardiaspalle del vino. Senza di lui, la tua bottiglia diventerebbe aceto prima che tu riesca ad aprirla."</p>
+  </div>
+
+  <div class="card" style="--accent: #534AB7;">
+    <div class="card-top">
+      <span class="card-name">Acido ascorbico</span>
+      <span class="badge badge-add">Additivo</span>
+    </div>
+    <p class="card-function">Antiossidante supplementare. Usato nel vino bianco insieme alla SO₂ per una protezione extra contro l'imbrunimento del mosto.</p>
+    <p class="card-caption">"La vitamina C del vino. Sì, esatto — il vino ha più cura di sé di quanto tu pensi."</p>
+  </div>
+
+  <div class="card" style="--accent: #534AB7;">
+    <div class="card-top">
+      <span class="card-name">Acido tartarico</span>
+      <span class="badge badge-add">Additivo</span>
+    </div>
+    <p class="card-function">Regolatore di acidità. Corregge e stabilizza il pH del vino, contribuendo a freschezza e longevità. È l'acido naturale dell'uva per eccellenza.</p>
+    <p class="card-caption">"Già presente nell'uva, lo aggiungiamo perché la natura a volte esagera con la dolcezza. Qualcuno deve tenere il vino sveglio."</p>
+  </div>
+
+  <div class="card" style="--accent: #534AB7;">
+    <div class="card-top">
+      <span class="card-name">Acido malico e acido lattico</span>
+      <span class="badge badge-add">Additivo</span>
+    </div>
+    <p class="card-function">Regolatori di acidità. Il malico dà freschezza verde (come le mele acerbe), il lattico morbidezza. Usati per correggere il profilo acido del vino.</p>
+    <p class="card-caption">"Il malico è il collega energico. Il lattico è quello che lo calma. Insieme fanno funzionare l'ufficio."</p>
+  </div>
+
+  <div class="card" style="--accent: #534AB7;">
+    <div class="card-top">
+      <span class="card-name">Gomma arabica</span>
+      <span class="badge badge-add">Additivo</span>
+    </div>
+    <p class="card-function">Stabilizzante. Rende il vino più morbido e rotondo in bocca, protegge il colore e riduce l'astringenza percepita. È una resina naturale di acacia.</p>
+    <p class="card-caption">"Il velluto del vino. Non lo vedi, non lo senti — ma senza di lui il tuo rosso sarebbe bello spigoloso."</p>
+  </div>
+
+  <div class="card" style="--accent: #534AB7;">
+    <div class="card-top">
+      <span class="card-name">Acido metatartarico</span>
+      <span class="badge badge-add">Additivo</span>
+    </div>
+    <p class="card-function">Stabilizzante tartarico. Impedisce la precipitazione dei cristalli di tartrato in bottiglia, quei puntini bianchi che spaventano i consumatori ignari.</p>
+    <p class="card-caption">"Evita che la bottiglia sembri piena di sale. Non è magia — è chimica. E la chimica funziona."</p>
+  </div>
+
+  <div class="card" style="--accent: #534AB7;">
+    <div class="card-top">
+      <span class="card-name">Mannoproteine di lievito</span>
+      <span class="badge badge-add">Additivo</span>
+    </div>
+    <p class="card-function">Stabilizzante proteico e tartarico. Migliora la stabilità, la morbidezza e la persistenza della spuma negli spumanti. Derivano naturalmente dall'autolisi dei lieviti.</p>
+    <p class="card-caption">"Il lascito dei lieviti: dopo aver lavorato tutta la fermentazione, donano al vino anche se stessi. Commovente, no?"</p>
+  </div>
+
+  <div class="card" style="--accent: #534AB7;">
+    <div class="card-top">
+      <span class="card-name">Tannino esogeno</span>
+      <span class="badge badge-add">Additivo</span>
+    </div>
+    <p class="card-function">Stabilizzante del colore nel vino rosso. Si lega agli antociani appena estratti fissando il colore e aggiungendo struttura. Può provenire da legno di quercia, semi d'uva o altri vegetali.</p>
+    <p class="card-caption">"Il collante del colore. Senza di lui, il tuo bel rosso rubino diventerebbe mattone in sei mesi."</p>
+  </div>
+
+  <div class="card" style="--accent: #534AB7;">
+    <div class="card-top">
+      <span class="card-name">Saccarosio</span>
+      <span class="badge badge-add">Additivo</span>
+    </div>
+    <p class="card-function">Usato nello spumante (metodo Charmat) per la seconda fermentazione in autoclave: produce la CO₂ per la presa di spuma e determina il residuo zuccherino finale.</p>
+    <p class="card-caption">"Zucchero da cucina in una bottiglia da 20€. La cosa più onesta che puoi mettere in etichetta — e anche la più sorprendente."</p>
+  </div>
+
+  <div class="card" style="--accent: #534AB7;">
+    <div class="card-top">
+      <span class="card-name">Sorbato di potassio</span>
+      <span class="badge badge-add">Additivo</span>
+    </div>
+    <p class="card-function">Conservante antimicrobico. Blocca la rifermentazione nei vini dolci o semidolci, impedendo che i lieviti residui riprendano a lavorare in bottiglia.</p>
+    <p class="card-caption">"Il buttafuori dei lieviti. Una volta finita la festa, lui si assicura che nessuno torni a fare casino."</p>
+  </div>
+
+</div>
+
+<p class="section-label">Coadiuvanti tecnologici — non rimangono nel vino</p>
+
+<div class="cards">
+
+  <div class="card" style="--accent: #0F6E56;">
+    <div class="card-top">
+      <span class="card-name">Bentonite</span>
+      <span class="badge badge-coad">Coadiuvante</span>
+    </div>
+    <p class="card-function">Chiarificante proteico. Argilla vulcanica che si lega alle proteine instabili del vino e le trascina sul fondo con sé. Viene poi eliminata con la filtrazione.</p>
+    <p class="card-caption">"Un'argilla che fa le pulizie. Entra, cattura tutto lo sporco, precipita e se ne va. Il professionista silenzioso della cantina."</p>
+  </div>
+
+  <div class="card" style="--accent: #0F6E56;">
+    <div class="card-top">
+      <span class="card-name">Gelatina</span>
+      <span class="badge badge-coad">Coadiuvante</span>
+    </div>
+    <p class="card-function">Chiarificante. Si lega ai tannini in eccesso e alle particelle in sospensione, precipitando e portandole via. Usata soprattutto nel bianco per ammorbidire il mosto.</p>
+    <p class="card-caption">"Stessa gelatina dei dolci — ma qui non fa dessert, fa pulizia. Entra da eroe, esce da scarto. Rispetto."</p>
+  </div>
+
+  <div class="card" style="--accent: #0F6E56;">
+    <div class="card-top">
+      <span class="card-name">Enzimi pectolitici</span>
+      <span class="badge badge-coad">Coadiuvante</span>
+    </div>
+    <p class="card-function">Facilitano la chiarifica disgregando le pectine delle pareti cellulari dell'uva. Migliorano la resa in mosto e rendono il liquido più limpido. Non rimangono nel vino finito.</p>
+    <p class="card-caption">"Demolitore di pareti cellulari. Non violento — chirurgico. Entra, fa il lavoro sporco, sparisce. Come un bravo consulente."</p>
+  </div>
+
+  <div class="card" style="--accent: #0F6E56;">
+    <div class="card-top">
+      <span class="card-name">Lieviti selezionati</span>
+      <span class="badge badge-coad">Coadiuvante</span>
+    </div>
+    <p class="card-function">Microorganismi che trasformano gli zuccheri in alcol e CO₂. Garantiscono una fermentazione controllata, riducono i composti secondari indesiderati e valorizzano gli aromi varietali.</p>
+    <p class="card-caption">"Mangiano zucchero, producono alcol. Il lavoro più apprezzato della cantina. Peccato che non abbiano il sindacato."</p>
+  </div>
+
+  <div class="card" style="--accent: #0F6E56;">
+    <div class="card-top">
+      <span class="card-name">Batteri lattici</span>
+      <span class="badge badge-coad">Coadiuvante</span>
+    </div>
+    <p class="card-function">Responsabili della fermentazione malolattica nel vino rosso: trasformano l'acido malico (duro) in acido lattico (morbido), riducendo l'acidità totale e aggiungendo complessità.</p>
+    <p class="card-caption">"Trasformano la cattiveria in gentilezza. Il vino dopo di loro è più morbido, più rotondo, meno spigoloso. Ci vorrebbe qualcuno così anche in ufficio."</p>
+  </div>
+
+  <div class="card" style="--accent: #0F6E56;">
+    <div class="card-top">
+      <span class="card-name">Attivanti di fermentazione</span>
+      <span class="badge badge-coad">Coadiuvante</span>
+    </div>
+    <p class="card-function">Nutrienti (sali d'ammonio, vitamine, scorze di lievito) che supportano la vitalità dei lieviti, soprattutto in condizioni difficili come l'alto tenore alcolico degli spumanti base.</p>
+    <p class="card-caption">"La colazione dei lieviti. Un po' di vitamine e sali minerali per non cedere a metà fermentazione. Li capiamo."</p>
+  </div>
+
+  <div class="card" style="--accent: #0F6E56;">
+    <div class="card-top">
+      <span class="card-name">Azoto e CO₂ (gas inerti)</span>
+      <span class="badge badge-coad">Coadiuvante</span>
+    </div>
+    <p class="card-function">Proteggono il mosto e il vino dall'ossigeno durante i trasferimenti e l'imbottigliamento. Non reagiscono col vino — fanno solo da scudo invisibile.</p>
+    <p class="card-caption">"Il bodyguard trasparente. Non parla, non si vede, non si sente — ma senza di lui l'ossigeno sfascerebbe tutto in cinque minuti."</p>
+  </div>
+
+  <div class="card" style="--accent: #0F6E56;">
+    <div class="card-top">
+      <span class="card-name">Carbossimetilcellulosa (CMC)</span>
+      <span class="badge badge-coad">Coadiuvante</span>
+    </div>
+    <p class="card-function">Stabilizzante tartarico alternativo all'acido metatartarico. Impedisce la cristallizzazione del tartrato di potassio. Efficace a lungo termine anche a temperature fredde.</p>
+    <p class="card-caption">"Il nome fa paura, il lavoro è noioso ma essenziale: impedisce che i cristalli rovinino la festa. Eroe silenzioso con un nome da farmaco."</p>
+  </div>
+
+</div>
