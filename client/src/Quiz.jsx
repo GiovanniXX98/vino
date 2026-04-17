@@ -9,6 +9,8 @@ const Quiz = ({ user, setUser }) => {
   const [feedback, setFeedback] = useState(null);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const [dragStart, setDragStart] = useState(null);
+  const [dragOffset, setDragOffset] = useState(0);
 
   const getLevel = (points) => Math.floor(points / 20) + 1;
   const currentQuiz = quizData[currentIndex];
@@ -47,19 +49,63 @@ const Quiz = ({ user, setUser }) => {
   const openChat = () => setShowChat(true);
   const closeChat = () => setShowChat(false);
 
+  const handleDragStart = (e) => {
+    const y = e.pageY || (e.touches && e.touches[0].pageY);
+    setDragStart(y);
+  };
+
+  const handleDragMove = (e) => {
+    if (dragStart === null) return;
+    const y = e.pageY || (e.touches && e.touches[0].pageY);
+    const offset = Math.max(0, dragStart - y);
+    setDragOffset(offset);
+  };
+
+  const handleDragEnd = () => {
+    if (dragOffset > 100) {
+      setShowQuiz(true);
+    }
+    setDragStart(null);
+    setDragOffset(0);
+  };
+
   if (!quizData.length) return <div style={{ padding: '2rem' }}>Caricamento quiz...</div>;
 
   return (
     <div className="quiz-container">
       {/* Full-screen logo overlay */}
       {!showQuiz && (
-        <div className="logo-overlay" onClick={() => setShowQuiz(true)}>
-          <div className="logo-circle">
-            <img src="/vino/logo.png" alt="Logo" />
+        <div 
+          className="logo-overlay" 
+          onMouseDown={handleDragStart}
+          onMouseMove={handleDragMove}
+          onMouseUp={handleDragEnd}
+          onMouseLeave={handleDragEnd}
+          onTouchStart={handleDragStart}
+          onTouchMove={handleDragMove}
+          onTouchEnd={handleDragEnd}
+          style={{ cursor: dragStart ? 'grabbing' : 'grab' }}
+        >
+          <div 
+            className="logo-content"
+            style={{ 
+              transform: `translateY(-${dragOffset}px)`,
+              opacity: 1 - dragOffset / 300,
+              transition: dragStart ? 'none' : 'transform 0.3s ease-out, opacity 0.3s ease-out'
+            }}
+          >
+            <div className="logo-circle">
+              <img src="/vino/logo.png" alt="Logo" />
+            </div>
+            <div className="swipe-hint">
+              <span className="swipe-text">SWIPE UP</span>
+              <div className="swipe-arrow"></div>
+            </div>
+            <p className="start-instruction">Scorri verso l'alto per iniziare</p>
           </div>
-          <div className="llm-container">
+          <div className="llm-container" style={{ opacity: 1 - dragOffset / 100 }}>
             <button className="btn llm-btn" onClick={(e) => { e.stopPropagation(); openChat(); }}>
-              Chat with NotebookLM AI
+              Chat con l'Esperto AI
             </button>
           </div>
         </div>
