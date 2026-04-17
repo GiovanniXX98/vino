@@ -638,7 +638,7 @@ h1, h2, h3 {
 }
 
 .explanation-card p {
-  color: var(--text);
+  color: var(--quiz-text);
   font-size: 0.92rem;
   line-height: 1.6;
   margin: 0;
