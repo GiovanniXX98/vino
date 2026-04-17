@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, X } from 'lucide-react';
 import { callLLM } from './aiService';
+import { OLLAMA_IP } from './config';
 
 const Chatbot = ({ onClose }) => {
   const [messages, setMessages] = useState([
@@ -56,7 +57,22 @@ const Chatbot = ({ onClose }) => {
       <div className="chatbot-messages">
         {messages.map((msg, idx) => (
           <div key={idx} className={`chatbot-message ${msg.role}`}>
-            {msg.text}
+            {msg.text.startsWith('CONN_ERROR: ') ? (
+              <>
+                {msg.text.replace('CONN_ERROR: ', '').split('https://')[0]}
+                <a 
+                  href={`https://${OLLAMA_IP}:11435`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ color: 'var(--secondary)', textDecoration: 'underline', fontWeight: 'bold' }}
+                >
+                  Sblocca Connessione HTTPS
+                </a>
+                {msg.text.split('11435')[1]}
+              </>
+            ) : (
+              msg.text
+            )}
           </div>
         ))}
         {loading && (

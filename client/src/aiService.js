@@ -44,6 +44,6 @@ export async function callLLM(message) {
     return reply;
   } catch (err) {
     console.error("Dettaglio Errore:", err);
-    return `Problema di connessione ad Ollama (${err.message}). Verifica che il server sia attivo e accetti connessioni!`;
+    return `CONN_ERROR: Per abilitare la connessione sicura (HTTPS), clicca qui: https://${OLLAMA_IP}:11435 e seleziona "Avanzate" -> "Procedi". Torna poi qui e riprova!`;
   }
 }
