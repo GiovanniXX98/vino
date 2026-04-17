@@ -40,7 +40,14 @@ export async function callLLM(message) {
     const data = await response.json();
     let reply = data.response;
 
+    // Rimuove il ragionamento interno se presente
     reply = reply.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+
+    // Fallback se la risposta è vuota
+    if (!reply) {
+      return "Buongiorno. Sono l'Enologo Senior, come posso aiutarla con i suoi quesiti tecnici?";
+    }
+
     return reply;
   } catch (err) {
     console.error("Dettaglio Errore:", err);
