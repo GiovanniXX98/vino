@@ -13,10 +13,10 @@ export async function callLLM(message) {
     const documentContext = wineContext.document_context || "";
 
     const prompt = `
-      SISTEMA: Sei l'Esperto Enologo. Rispondi in italiano.
+      SISTEMA: Sei l'Enologo Senior. Rispondi in italiano in modo estremamente sintetico e tecnico.
       CONTESTO: ${documentContext} ${contextString}
       DOMANDA: ${message}
-      RISPOSTA:
+      RISPOSTA BREVE:
     `;
 
     const response = await fetch(OLLAMA_BASE_URL, {
