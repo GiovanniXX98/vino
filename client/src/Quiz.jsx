@@ -124,8 +124,8 @@ const Quiz = ({ user, setUser }) => {
               <div className="swipe-arrow"></div>
             </div>
             <p className="start-instruction">Scorri verso l'alto per iniziare</p>
-          </div>
-            <div className="ai-status-panel" style={{ opacity: 1 - dragOffset / 100 }}>
+            
+            <div className="ai-status-panel">
               {aiStatus === 'checking' && (
                 <div className="ai-status checking">
                   <Loader2 className="spinning" size={18} />
@@ -161,6 +161,7 @@ const Quiz = ({ user, setUser }) => {
                 {aiStatus === 'locked' ? "Riprova Chat" : "Chat con l'Esperto AI"}
               </button>
             </div>
+          </div>
         </div>
       )}
       {showQuiz && (
