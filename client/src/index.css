@@ -840,22 +840,25 @@ h1, h2, h3 {
 
 .contact-btn {
   margin-top: 15px;
-  background-color: #c62828 !important; /* Rosso Visibile */
+  background-color: var(--primary) !important; /* Torna Bordeaux come la chat */
   color: #ffffff !important;
-  border: 2px solid #D4AF37 !important; /* Bordo Oro */
-  padding: 1rem 2rem;
+  border: 1px solid var(--secondary) !important; /* Bordo Oro sottile */
+  padding: 0.8rem 2rem;
   border-radius: 50px;
-  font-weight: 900;
+  font-weight: 800;
   text-transform: uppercase;
-  box-shadow: 0 4px 20px rgba(198, 40, 40, 0.4);
+  letter-spacing: 1px;
+  font-size: clamp(0.8rem, 3vw, 1rem);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   cursor: pointer;
   transition: all 0.3s ease;
+  width: auto;
+  min-width: clamp(200px, 80vw, 300px);
 }
 
 .contact-btn:hover {
-  background-color: #e53935 !important;
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 6px 25px rgba(198, 40, 40, 0.6);
+  background-color: var(--primary-light) !important;
+  transform: scale(1.02);
 }
 
 .admin-link {
@@ -871,4 +874,31 @@ h1, h2, h3 {
 
 .admin-link:hover {
   opacity: 1;
+}
+
+/* Stili per lo stato dell'AI */
+.ai-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.ai-status.locked {
+  background: rgba(198, 40, 40, 0.1);
+  border: 1px solid var(--error);
+  color: #000; /* Testo Nero come richiesto */
+}
+
+.ai-status.locked span {
+  font-weight: bold;
+}
+
+.unlock-link {
+  color: var(--primary);
+  text-decoration: underline;
+  font-weight: bold;
+  margin-left: 5px;
 }
