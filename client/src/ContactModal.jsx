@@ -77,6 +77,7 @@ const ContactModal = ({ onClose }) => {
                 onChange={e => setFormData({...formData, oggetto: e.target.value})}
               >
                 <option value="Richiesta Autenticazione Server">Richiesta Autenticazione Server</option>
+                <option value="Richiesta Collaborazione">Richiesta Collaborazione</option>
                 <option value="Problemi Tecnici">Problemi Tecnici</option>
                 <option value="Informazioni Generali">Informazioni Generali</option>
               </select>

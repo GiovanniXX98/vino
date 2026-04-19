@@ -839,16 +839,23 @@ h1, h2, h3 {
 }
 
 .contact-btn {
-  margin-top: 10px;
-  background: var(--primary) !important;
-  color: white !important;
-  border: 1px solid var(--secondary) !important;
-  box-shadow: 0 4px 12px rgba(114, 47, 55, 0.2);
+  margin-top: 15px;
+  background-color: #c62828 !important; /* Rosso Visibile */
+  color: #ffffff !important;
+  border: 2px solid #D4AF37 !important; /* Bordo Oro */
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(198, 40, 40, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .contact-btn:hover {
-  background: var(--primary-light) !important;
-  transform: scale(1.02);
+  background-color: #e53935 !important;
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 6px 25px rgba(198, 40, 40, 0.6);
 }
 
 .admin-link {
