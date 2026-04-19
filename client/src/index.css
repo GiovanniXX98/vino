@@ -890,11 +890,21 @@ h1, h2, h3 {
 .ai-status.locked {
   background: rgba(198, 40, 40, 0.1);
   border: 1px solid var(--error);
-  color: #000; /* Testo Nero come richiesto */
+  color: #000; /* Testo Nero */
 }
 
-.ai-status.locked span {
+.ai-status.checking {
+  color: #000; /* Testo Nero per "Verifica connessione..." */
+  opacity: 0.7;
+}
+
+.ai-status.available {
+  color: var(--success);
   font-weight: bold;
+}
+
+.ai-status span {
+  font-weight: 500;
 }
 
 .unlock-link {
