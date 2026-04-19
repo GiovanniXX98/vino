@@ -172,13 +172,13 @@ const Quiz = ({ user, setUser }) => {
               >
                 Contattaci
               </button>
-            </div>
 
-            <div 
-              className="admin-link" 
-              onClick={(e) => { e.stopPropagation(); setShowAdmin(true); }}
-            >
-              Area Admin
+              <div 
+                className="admin-link" 
+                onClick={(e) => { e.stopPropagation(); setShowAdmin(true); }}
+              >
+                Area Admin
+              </div>
             </div>
           </div>
         </div>

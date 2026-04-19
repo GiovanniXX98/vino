@@ -862,14 +862,14 @@ h1, h2, h3 {
 }
 
 .admin-link {
-  position: absolute;
-  bottom: 20px;
+  margin-top: 20px;
   opacity: 0.4;
   font-size: 0.8rem;
   cursor: pointer;
   color: var(--primary);
   text-decoration: underline;
   transition: opacity 0.2s;
+  text-align: center;
 }
 
 .admin-link:hover {
