@@ -862,14 +862,15 @@ h1, h2, h3 {
 }
 
 .admin-link {
-  margin-top: 20px;
-  opacity: 0.4;
-  font-size: 0.8rem;
+  margin-top: 40px;
+  opacity: 0.8;
+  font-size: 0.85rem;
   cursor: pointer;
-  color: var(--primary);
+  color: #000000; /* Nero come richiesto */
   text-decoration: underline;
   transition: opacity 0.2s;
   text-align: center;
+  font-weight: bold;
 }
 
 .admin-link:hover {

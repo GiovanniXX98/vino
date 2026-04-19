@@ -172,14 +172,16 @@ const Quiz = ({ user, setUser }) => {
               >
                 Contattaci
               </button>
+            </div>
 
+            {(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && (
               <div 
                 className="admin-link" 
                 onClick={(e) => { e.stopPropagation(); setShowAdmin(true); }}
               >
-                Area Admin
+                Area Admin (Solo Local)
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
