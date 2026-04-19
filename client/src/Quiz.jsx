@@ -14,6 +14,8 @@ const Quiz = ({ user, setUser }) => {
   const [showChat, setShowChat] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
+  const [adminSecretCount, setAdminSecretCount] = useState(0);
+  const [showAdminLink, setShowAdminLink] = useState(false);
   const [dragStart, setDragStart] = useState(null);
   const [dragOffset, setDragOffset] = useState(0);
   const [aiStatus, setAiStatus] = useState('checking'); // 'checking', 'available', 'locked'
@@ -76,6 +78,15 @@ const Quiz = ({ user, setUser }) => {
   const openChat = () => setShowChat(true);
   const closeChat = () => setShowChat(false);
 
+  const handleLogoClick = () => {
+    const newCount = adminSecretCount + 1;
+    setAdminSecretCount(newCount);
+    if (newCount === 5) {
+      setShowAdminLink(true);
+      // Feedback opzionale nei log per me
+    }
+  };
+
   const handleDragStart = (e) => {
     const y = e.pageY || (e.touches && e.touches[0].pageY);
     setDragStart(y);
@@ -121,7 +132,7 @@ const Quiz = ({ user, setUser }) => {
               transition: dragStart ? 'none' : 'transform 0.3s ease-out, opacity 0.3s ease-out'
             }}
           >
-            <div className="logo-circle">
+            <div className="logo-circle" onClick={handleLogoClick}>
               <img src="/vino/logo.png" alt="Logo" />
             </div>
             <div className="swipe-hint">
@@ -174,12 +185,12 @@ const Quiz = ({ user, setUser }) => {
               </button>
             </div>
 
-            {(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && (
+            {showAdminLink && (
               <div 
                 className="admin-link" 
                 onClick={(e) => { e.stopPropagation(); setShowAdmin(true); }}
               >
-                Area Admin (Solo Local)
+                Area Admin (Sbloccata)
               </div>
             )}
           </div>
