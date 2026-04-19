@@ -3,6 +3,54 @@ import { Send, X } from 'lucide-react';
 import { callLLM } from './aiService';
 import { OLLAMA_IP } from './config';
 
+const ConnectionErrorMessage = ({ text, ollamaIp }) => {
+  const parts = text.split('||');
+  const mainMessage = parts[0].replace('CONN_ERROR:', '').trim();
+  const httpsLink = parts.find(p => p.startsWith('HTTPS_LINK:'))?.replace('HTTPS_LINK:', '');
+  const email = parts.find(p => p.startsWith('EMAIL:'))?.replace('EMAIL:', '');
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <p>{mainMessage}</p>
+      {httpsLink && (
+        <a 
+          href={httpsLink} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="error-link"
+          style={{ 
+            display: 'inline-block',
+            padding: '8px 12px',
+            background: 'rgba(242, 206, 90, 0.1)',
+            border: '1px solid #f2ce5a',
+            borderRadius: '6px',
+            color: '#f2ce5a',
+            textDecoration: 'none',
+            fontSize: 'var(--font-sm)',
+            textAlign: 'center',
+            transition: 'all 0.2s ease'
+          }}
+        >
+          Sblocca Connessione HTTPS (Clicca qui)
+        </a>
+      )}
+      {email && (
+        <div style={{ fontSize: '0.85em', opacity: 0.9, borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '8px' }}>
+          Per l'autenticazione o problemi tecnici: <br/>
+          <strong>Usa il tasto "Contattaci" nella home del sito.</strong>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const AuthErrorMessage = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <p style={{ fontWeight: 'bold', color: '#ff4d4d' }}>Accesso Negato</p>
+    <p>Il bot non è autorizzato ad accedere al server. Chiudi la chat e usa il modulo <strong>"Contattaci"</strong> per richiedere l'abilitazione del tuo accesso.</p>
+  </div>
+);
+
 const Chatbot = ({ onClose }) => {
   const [messages, setMessages] = useState([
     { role: 'assistant', text: 'Buongiorno! Sono il tuo Esperto Enologo (DeepSeek Local). Chiedimi ciò che vuoi sui tuoi documenti!' }
@@ -57,22 +105,13 @@ const Chatbot = ({ onClose }) => {
       <div className="chatbot-messages">
         {messages.map((msg, idx) => (
           <div key={idx} className={`chatbot-message ${msg.role}`}>
-            {msg.text.startsWith('CONN_ERROR: ') ? (
-              <>
-                {msg.text.replace('CONN_ERROR: ', '').split('https://')[0]}
-                <a 
-                  href={`https://${OLLAMA_IP}:11435`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{ color: 'var(--secondary)', textDecoration: 'underline', fontWeight: 'bold' }}
-                >
-                  Sblocca Connessione HTTPS
-                </a>
-                {msg.text.split('11435')[1]}
-              </>
-            ) : (
-              msg.text
-            )}
+          {msg.text.startsWith('CONN_ERROR:') ? (
+            <ConnectionErrorMessage text={msg.text} ollamaIp={OLLAMA_IP} />
+          ) : msg.text.startsWith('AUTH_ERROR:') ? (
+            <AuthErrorMessage />
+          ) : (
+            msg.text
+          )}
           </div>
         ))}
         {loading && (

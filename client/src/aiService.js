@@ -34,6 +34,9 @@ export async function callLLM(message) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error(`Ollama Error Detail: Status ${response.status}, Body: ${errorText}`);
+      if (response.status === 401 || response.status === 403) {
+        throw new Error('AUTH_ERROR');
+      }
       throw new Error(`Errore Server (${response.status})`);
     }
 
@@ -51,6 +54,9 @@ export async function callLLM(message) {
     return reply;
   } catch (err) {
     console.error("Dettaglio Errore:", err);
-    return `CONN_ERROR: Per abilitare la connessione sicura (HTTPS), clicca qui: https://${OLLAMA_IP}:11435 e seleziona "Avanzate" -> "Procedi". Torna poi qui e riprova!`;
+    if (err.message === 'AUTH_ERROR') {
+      return `AUTH_ERROR: Il bot non è autorizzato ad accedere al server. Per richiedere l'accesso contatta: andreottigiovanni98@gmail.com`;
+    }
+    return `CONN_ERROR: Il bot non riesce a connettersi al server AI. Il servizio potrebbe essere offline o richiedere una configurazione speciale.||HTTPS_LINK:https://${OLLAMA_IP}:11435||EMAIL:andreottigiovanni98@gmail.com`;
   }
 }

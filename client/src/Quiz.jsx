@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Wine, Award, RotateCcw, ArrowLeft, ShieldCheck, ShieldAlert, Loader2 } from 'lucide-react';
 import quizData from './data/quizData.json';
 import Chatbot from './Chatbot';
+import ContactModal from './ContactModal';
+import AdminPanel from './AdminPanel';
 import { OLLAMA_BASE_URL, OLLAMA_IP } from './config';
 
 const Quiz = ({ user, setUser }) => {
@@ -10,6 +12,8 @@ const Quiz = ({ user, setUser }) => {
   const [feedback, setFeedback] = useState(null);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const [showContact, setShowContact] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
   const [dragStart, setDragStart] = useState(null);
   const [dragOffset, setDragOffset] = useState(0);
   const [aiStatus, setAiStatus] = useState('checking'); // 'checking', 'available', 'locked'
@@ -161,6 +165,22 @@ const Quiz = ({ user, setUser }) => {
               >
                 {aiStatus === 'locked' ? "Riprova Chat" : "Chat con l'Esperto AI"}
               </button>
+
+              <button 
+                className="btn contact-btn" 
+                onClick={(e) => { e.stopPropagation(); setShowContact(true); }}
+                style={{ marginTop: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+              >
+                Contattaci
+              </button>
+            </div>
+
+            <div 
+              className="admin-link" 
+              onClick={(e) => { e.stopPropagation(); setShowAdmin(true); }}
+              style={{ position: 'absolute', bottom: '20px', opacity: 0.3, fontSize: '0.8rem', cursor: 'pointer' }}
+            >
+              Area Admin
             </div>
           </div>
         </div>
@@ -232,6 +252,8 @@ const Quiz = ({ user, setUser }) => {
         </>
       )}
       {showChat && <Chatbot onClose={closeChat} />}
+      {showContact && <ContactModal onClose={() => setShowContact(false)} />}
+      {showAdmin && <AdminPanel onClose={() => setShowAdmin(false)} />}
     </div>
   );
 };
