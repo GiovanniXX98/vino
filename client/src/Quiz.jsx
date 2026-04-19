@@ -169,7 +169,6 @@ const Quiz = ({ user, setUser }) => {
               <button 
                 className="btn contact-btn" 
                 onClick={(e) => { e.stopPropagation(); setShowContact(true); }}
-                style={{ marginTop: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
               >
                 Contattaci
               </button>
@@ -178,7 +177,6 @@ const Quiz = ({ user, setUser }) => {
             <div 
               className="admin-link" 
               onClick={(e) => { e.stopPropagation(); setShowAdmin(true); }}
-              style={{ position: 'absolute', bottom: '20px', opacity: 0.3, fontSize: '0.8rem', cursor: 'pointer' }}
             >
               Area Admin
             </div>
