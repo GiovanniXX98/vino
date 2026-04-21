@@ -1,8 +1,0 @@
-OLLAMA_HOST=0.0.0.0:11434 ollama serve
-
-cd /home/giovanni/Desktop/progetti/vino
-python3 scripts/https_proxy.py
-
-pkill ollama
-
-sito https://giovannixx98.github.io/vino/
