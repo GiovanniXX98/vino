@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Send, Loader2, CheckCircle } from 'lucide-react';
+import { API_BASE_URL } from './config';
 
 const ContactModal = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ const ContactModal = ({ onClose }) => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:3000/api/contact', {
+      const response = await fetch(`${API_BASE_URL}/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

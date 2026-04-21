@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Lock, Mail, Calendar, User, Trash2, RefreshCw } from 'lucide-react';
+import { API_BASE_URL } from './config';
 
 const AdminPanel = ({ onClose }) => {
   const [password, setPassword] = useState('');
@@ -13,7 +14,7 @@ const AdminPanel = ({ onClose }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:3000/api/admin/login', {
+      const response = await fetch(`${API_BASE_URL}/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password })
@@ -33,7 +34,7 @@ const AdminPanel = ({ onClose }) => {
   const fetchContacts = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3000/api/admin/contacts', {
+      const response = await fetch(`${API_BASE_URL}/admin/contacts`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();

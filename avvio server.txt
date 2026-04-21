@@ -4,4 +4,5 @@ cd /home/giovanni/Desktop/progetti/vino
 python3 scripts/https_proxy.py
 
 pkill ollama
-admin_vino_2024
+
+sito https://giovannixx98.github.io/vino/
