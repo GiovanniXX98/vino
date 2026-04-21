@@ -34,12 +34,10 @@ const ConnectionErrorMessage = ({ text, ollamaIp }) => {
           Sblocca Connessione HTTPS (Clicca qui)
         </a>
       )}
-      {email && (
         <div style={{ fontSize: '0.85em', opacity: 0.9, borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '8px' }}>
           Per l'autenticazione o problemi tecnici: <br/>
-          <strong>Usa il tasto "Contattaci" nella home del sito.</strong>
+          <strong>Contatta l'amministratore del sistema.</strong>
         </div>
-      )}
     </div>
   );
 };
@@ -47,7 +45,7 @@ const ConnectionErrorMessage = ({ text, ollamaIp }) => {
 const AuthErrorMessage = () => (
   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
     <p style={{ fontWeight: 'bold', color: '#ff4d4d' }}>Accesso Negato</p>
-    <p>Il bot non è autorizzato ad accedere al server. Chiudi la chat e usa il modulo <strong>"Contattaci"</strong> per richiedere l'abilitazione del tuo accesso.</p>
+    <p>Il bot non è autorizzato ad accedere al server. Contatta l'amministratore per richiedere l'abilitazione del tuo accesso.</p>
   </div>
 );
 

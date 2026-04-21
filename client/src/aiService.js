@@ -55,8 +55,8 @@ export async function callLLM(message) {
   } catch (err) {
     console.error("Dettaglio Errore:", err);
     if (err.message === 'AUTH_ERROR') {
-      return `AUTH_ERROR: Il bot non è autorizzato ad accedere al server. Per richiedere l'accesso contatta: andreottigiovanni98@gmail.com`;
+      return `AUTH_ERROR: Il bot non è autorizzato ad accedere al server. Contatta l'amministratore.`;
     }
-    return `CONN_ERROR: Il bot non riesce a connettersi al server AI. Il servizio potrebbe essere offline o richiedere una configurazione speciale.||HTTPS_LINK:https://${OLLAMA_IP}:11435||EMAIL:andreottigiovanni98@gmail.com`;
+    return `CONN_ERROR: Il bot non riesce a connettersi al server AI. Il servizio potrebbe essere offline o richiedere una configurazione speciale.||HTTPS_LINK:https://${OLLAMA_IP}:11435`;
   }
 }

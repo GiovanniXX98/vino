@@ -12,7 +12,6 @@ app.use(express.json());
 const JWT_SECRET = 'wine_secret_key_123';
 const usersPath = path.join(__dirname, 'data', 'users.json');
 const quizPath = path.join(__dirname, 'data', 'quiz.json');
-const contactsPath = path.join(__dirname, 'data', 'contacts.json');
 
 const ADMIN_PASSWORD = 'admin_vino_2024';
 
@@ -125,59 +124,7 @@ app.get('/api/user/me', authRequired, (req, res) => {
   res.json({ id: user.id, nome: user.nome, email: user.email, points: user.points, level: user.level });
 });
 
-// Endpoint per inviare contatti
-app.post('/api/contact', (req, res) => {
-  const { nome, email, oggetto, messaggio } = req.body;
-  if (!nome || !email || !messaggio) {
-    return res.status(400).json({ error: 'Campi obbligatori mancanti (nome, email, messaggio)' });
-  }
 
-  const contacts = readJson(contactsPath);
-  const newContact = {
-    id: Date.now().toString(),
-    nome,
-    email,
-    oggetto: oggetto || 'Contatto Generale',
-    messaggio,
-    data: new Date().toLocaleString('it-IT'),
-    letto: false
-  };
-
-  contacts.push(newContact);
-  writeJson(contactsPath, contacts);
-  
-  console.log(`\n--- NUOVO CONTATTO RICEVUTO ---`);
-  console.log(`Da: ${nome} <${email}>`);
-  console.log(`Oggetto: ${oggetto}`);
-  console.log(`-------------------------------\n`);
-
-  res.status(201).json({ message: 'Messaggio inviato con successo.' });
-});
-
-// Endpoint Admin per vedere i contatti
-app.post('/api/admin/login', (req, res) => {
-  const { password } = req.body;
-  if (password === ADMIN_PASSWORD) {
-    const token = jwt.sign({ role: 'admin' }, JWT_SECRET, { expiresIn: '1h' });
-    return res.json({ token });
-  }
-  res.status(401).json({ error: 'Password Admin errata' });
-});
-
-app.get('/api/admin/contacts', (req, res) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ error: 'Non autorizzato' });
-  
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    if (decoded.role !== 'admin') throw new Error('Not admin');
-    
-    const contacts = readJson(contactsPath);
-    res.json(contacts);
-  } catch (err) {
-    res.status(401).json({ error: 'Accesso Admin richiesto' });
-  }
-});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

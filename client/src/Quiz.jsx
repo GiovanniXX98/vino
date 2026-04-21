@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Wine, Award, RotateCcw, ArrowLeft, ShieldCheck, ShieldAlert, Loader2 } from 'lucide-react';
 import quizData from './data/quizData.json';
 import Chatbot from './Chatbot';
-import ContactModal from './ContactModal';
-import AdminPanel from './AdminPanel';
 import { OLLAMA_BASE_URL, OLLAMA_IP } from './config';
 
 const Quiz = ({ user, setUser }) => {
@@ -12,10 +10,6 @@ const Quiz = ({ user, setUser }) => {
   const [feedback, setFeedback] = useState(null);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showChat, setShowChat] = useState(false);
-  const [showContact, setShowContact] = useState(false);
-  const [showAdmin, setShowAdmin] = useState(false);
-  const [adminSecretCount, setAdminSecretCount] = useState(0);
-  const [showAdminLink, setShowAdminLink] = useState(false);
   const [dragStart, setDragStart] = useState(null);
   const [dragOffset, setDragOffset] = useState(0);
   const [aiStatus, setAiStatus] = useState('checking'); // 'checking', 'available', 'locked'
@@ -78,14 +72,6 @@ const Quiz = ({ user, setUser }) => {
   const openChat = () => setShowChat(true);
   const closeChat = () => setShowChat(false);
 
-  const handleLogoClick = () => {
-    const newCount = adminSecretCount + 1;
-    setAdminSecretCount(newCount);
-    if (newCount === 5) {
-      setShowAdminLink(true);
-      // Feedback opzionale nei log per me
-    }
-  };
 
   const handleDragStart = (e) => {
     const y = e.pageY || (e.touches && e.touches[0].pageY);
@@ -132,7 +118,7 @@ const Quiz = ({ user, setUser }) => {
               transition: dragStart ? 'none' : 'transform 0.3s ease-out, opacity 0.3s ease-out'
             }}
           >
-            <div className="logo-circle" onClick={handleLogoClick}>
+            <div className="logo-circle">
               <img src="/vino/logo.png" alt="Logo" />
             </div>
             <div className="swipe-hint">
@@ -176,23 +162,7 @@ const Quiz = ({ user, setUser }) => {
               >
                 {aiStatus === 'locked' ? "Riprova Chat" : "Chat con l'Esperto AI"}
               </button>
-
-              <button 
-                className="btn contact-btn" 
-                onClick={(e) => { e.stopPropagation(); setShowContact(true); }}
-              >
-                Contattaci
-              </button>
             </div>
-
-            {showAdminLink && (
-              <div 
-                className="admin-link" 
-                onClick={(e) => { e.stopPropagation(); setShowAdmin(true); }}
-              >
-                Area Admin (Sbloccata)
-              </div>
-            )}
           </div>
         </div>
       )}
@@ -263,8 +233,6 @@ const Quiz = ({ user, setUser }) => {
         </>
       )}
       {showChat && <Chatbot onClose={closeChat} />}
-      {showContact && <ContactModal onClose={() => setShowContact(false)} />}
-      {showAdmin && <AdminPanel onClose={() => setShowAdmin(false)} />}
     </div>
   );
 };
